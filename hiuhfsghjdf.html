@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined HTML Site</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #9999af;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #000000;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 15px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 10px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        footer {
+            background-color: #000000;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+        @media screen and (max-width: 767px) {
+            .row.content {height: auto;}
+        }
+        .navbar-brand {
+            display: none;
+        }
+        @media (max-width: 767px) {
+            .navbar-brand {
+                display: inline;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>ALL LOL CHAMPS PERSONAL WINRATE</h1>
+    <nav class="navbar navbar-inverse visible-xs">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Logo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="milo.html">Milo</a></li>
+                    <li><a href="callum.html">Callum</a></li>
+                    <li><a href="combined.html">Combined</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav hidden-xs">
+            <h2>Logo</h2>
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="milo.html">Milo</a></li>
+                <li><a href="callum.html">Callum</a></li>
+                <li><a href="combined.html">Combined</a></li>
+            </ul><br>
+        </div>
+
+        <div class="col-sm-9">
+            <main>
+                <section id="Milo">
+                    <h2>Milo</h2>
+                    <p>Milo's section of the website to store his data.</p>
+                </section>
+                <section id="Callum">
+                    <h2>Callum</h2>
+                    <p>Callum's section of the website to store his data.</p>
+                </section>
+                <section id="Combined">
+                    <h2>Combined</h2>
+                    <p>This is the section of the website to combine our data and achieve overall percentages.</p>
+                </section>
+            </main>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; Skibidi</p>
+</footer>
+
+</body>
+</html>
