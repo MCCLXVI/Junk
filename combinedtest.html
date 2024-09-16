@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callum Champion Stats Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: white;
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .navbar button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .navbar button:hover {
+            background-color: #777;
+        }
+
+        table {
+            width: 100%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1.2em;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        table thead tr {
+            background-color: #3498db;
+            color: #ffffff;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table th {
+            width: 50px;
+        }
+
+        table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        table tbody tr:last-of-type {
+            border-bottom: 2px solid #3498db;
+        }
+
+        table tbody tr:hover {
+            background-color: #e1e1e1;
+        }
+
+        .champion-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .champion-name {
+            display: flex;
+            align-items: center;
+        }
+
+        .sortable {
+            cursor: pointer;
+        }
+
+        .ascending::after {
+            content: ' ▲';
+        }
+
+        .descending::after {
+            content: ' ▼';
+        }
+
+        input[type="file"] {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>Combined Champion Stats Table</h1>
+        <a href="to-be-added-to-main-project.html">
+            <button>Back to Main Page</button>
+        </a>
+    </div>
+
+    <div>
+        <input type="file" id="fileInput1" accept=".xlsx" />
+        <input type="file" id="fileInput2" accept=".xlsx" />
+    </div>
+
+    <table id="championTable">
+        <thead>
+            <tr>
+                <th id="rankHeader" class="sortable">Rank</th> 
+                <th>Champion</th>
+                <th>KDA</th>
+                <th>Games Played</th>
+                <th>Win Rate</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const fileInput1 = document.getElementById('fileInput1');
+            const fileInput2 = document.getElementById('fileInput2');
+            const tableBody = document.getElementById('tableBody');
+            const rankHeader = document.getElementById('rankHeader');
+            let ascending = true;
+
+            const championList = [
+                'Aatrox.png', 'Ahri.png', 'Akali.png', 'Akshan.png', 'Alistar.png',
+                'Amumu.png', 'Annie.png', 'Aphelios.png', 'Ashe.png', 'Aurelion Sol.png',
+                'Aurora.png', 'Azir.png', 'Bard.png', 'BelVeth.png', 'Blitzcrank.png',
+                'Brand.png', 'Braum.png', 'Briar.png', 'Caitlyn.png', 'Camille.png',
+                'Cassiopeia.png', 'Chogath.png', 'Corki.png', 'Darius.png', 'Diana.png',
+                'Dr. Mundo.png', 'Draven.png', 'Ekko.png', 'Elise.png', 'Evelynn.png',
+                'Ezreal.png', 'Fiddlesticks.png', 'Fiora.png', 'Fizz.png', 'Galio.png',
+                'Gangplank.png', 'Garen.png', 'Gnar.png', 'Gragas.png', 'Graves.png',
+                'Gwen.png', 'Hecarim.png', 'Heimerdinger.png', 'Hwei.png', 'Illaoi.png',
+                'Irelia.png', 'Ivern.png', 'Janna.png', 'Jarvan IV.png', 'Jax.png',
+                'Jayce.png', 'Jhin.png', 'Jinx.png', 'KSante.png', 'KaiSa.png',
+                'Kalista.png', 'Karma.png', 'Karthus.png', 'Kassadin.png', 'Katarina.png',
+                'Kayle.png', 'Kayn.png', 'Kennen.png', 'KhaZix.png', 'Kindred.png',
+                'Kled.png', 'KogMaw.png', 'LeBlanc.png', 'Lee Sin.png', 'Leona.png',
+                'Lillia.png', 'Lissandra.png', 'Lucian.png', 'Lulu.png', 'Lux.png',
+                'Malphite.png', 'Malzahar.png', 'Maokai.png', 'Master Yi.png', 'Milio.png',
+                'Miss Fortune.png', 'Mordekaiser.png', 'Morgana.png', 'Naafiri.png', 'Nami.png',
+                'Nasus.png', 'Nautilus.png', 'Neeko.png', 'Nidalee.png', 'Nilah.png',
+                'Nocturne.png', 'Nunu.png', 'Olaf.png', 'Orianna.png', 'Ornn.png',
+                'Pantheon.png', 'Poppy.png', 'Pyke.png', 'Qiyana.png', 'Quinn.png',
+                'Rakan.png', 'Rammus.png', 'RekSai.png', 'Rell.png', 'Renata Glasc.png',
+                'Renekton.png', 'Rengar.png', 'Riven.png', 'Rumble.png', 'Ryze.png',
+                'Samira.png', 'Sejuani.png', 'Senna.png', 'Seraphine.png', 'Sett.png',
+                'Shaco.png', 'Shen.png', 'Shyvana.png', 'Singed.png', 'Sion.png',
+                'Sivir.png', 'Skarner.png', 'Smolder.png', 'Sona.png', 'Soraka.png',
+                'Swain.png', 'Sylas.png', 'Syndra.png', 'Tahm Kench.png', 'Taliyah.png',
+                'Talon.png', 'Taric.png', 'Teemo.png', 'Thresh.png', 'Tristana.png',
+                'Trundle.png', 'Tryndamere.png', 'Twisted Fate.png', 'Twitch.png', 'Udyr.png',
+                'Urgot.png', 'Varus.png', 'Vayne.png', 'Veigar.png', 'VelKoz.png',
+                'Vex.png', 'Vi.png', 'Viego.png', 'Viktor.png', 'Vladimir.png',
+                'Volibear.png', 'Warwick.png', 'Wukong.png', 'Xayah.png', 'Xerath.png',
+                'Xin Zhao.png', 'Yasuo.png', 'Yone.png', 'Yorick.png', 'Yuumi.png',
+                'Zac.png', 'Zed.png', 'Zeri.png', 'Ziggs.png', 'Zilean.png',
+                'Zoe.png', 'Zyra.png'
+            ];
+
+            // Create default data from the champion list
+            const defaultData = championList.map((image, index) => {
+                const name = image.replace(/_/g, ' ').replace('.png', '').replace(/([A-Z])/g, ' $1').trim();
+                return [index + 1, image, name, '', '', ''];
+            });
+
+            function populateTable(data) {
+                tableBody.innerHTML = '';
+
+                data.forEach(row => {
+                    const tableRow = document.createElement('tr');
+
+                    const rankCell = document.createElement('td');
+                    rankCell.textContent = row[0];  // Rank
+
+                    const championCell = document.createElement('td');
+                    const championDiv = document.createElement('div');
+                    championDiv.classList.add('champion-name');
+                    const championImage = document.createElement('img');
+                    championImage.src = 'PNG images/' + row[1];  // Image path
+                    championImage.alt = row[2];  // Champion name
+                    championImage.classList.add('champion-icon');
+                    championDiv.appendChild(championImage);
+                    const championName = document.createElement('span');
+                    championName.textContent = row[2];  // Champion name
+                    championDiv.appendChild(championName);
+                    championCell.appendChild(championDiv);
+
+                    const kdaCell = document.createElement('td');
+                    kdaCell.textContent = row[3] || '';  // KDA
+
+                    const gamesCell = document.createElement('td');
+                    gamesCell.textContent = row[4] || '';  // Games Played
+
+                    const winRateCell = document.createElement('td');
+                    winRateCell.textContent = (row[5] * 100).toFixed(2) + '%' || '';  // Win Rate
+
+                    tableRow.appendChild(rankCell);
+                    tableRow.appendChild(championCell);
+                    tableRow.appendChild(kdaCell);
+                    tableRow.appendChild(gamesCell);
+                    tableRow.appendChild(winRateCell);
+
+                    tableBody.appendChild(tableRow);
+                });
+            }
+
+            function handleFile(fileInput, callback) {
+                const file = fileInput.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const excelData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+
+                    // Filter and map the data correctly (skip the header)
+                    const filteredData = excelData.slice(1).map(row => [
+                        row[0],  // Rank
+                        row[1],  // Image
+                        row[2],  // Champion
+                        row[3],  // KDA
+                        row[4],  // Games Played
+                        row[5]   // Win Rate (as decimal)
+                    ]);
+
+                    callback(filteredData);
+                };
+                reader.readAsArrayBuffer(file);
+            }
+
+            function updateTable() {
+                let data1 = [];
+                let data2 = [];
+
+                if (fileInput1.files.length > 0) {
+                    handleFile(fileInput1, (fileData1) => {
+                        data1 = fileData1;
+                        if (fileInput2.files.length > 0) {
+                            handleFile(fileInput2, (fileData2) => {
+                                data2 = fileData2;
+                                const combinedData = [...data1, ...data2];
+                                populateTable(combinedData);
+                            });
+                        } else {
+                            populateTable(data1);  // If only one file is uploaded
+                        }
+                    });
+                }
+            }
+
+            fileInput1.addEventListener('change', updateTable);
+            fileInput2.addEventListener('change', updateTable);
+
+            rankHeader.addEventListener('click', () => {
+                ascending = !ascending;
+                const sortedData = defaultData.sort((a, b) => ascending ? a[0] - b[0] : b[0] - a[0]);
+                populateTable(sortedData);
+            });
+
+            // Populate table with default data on page load
+            populateTable(defaultData);
+        });
+    </script>
+</body>
+</html>
