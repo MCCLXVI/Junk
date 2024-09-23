@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <title>About Bailey</title>
+    <style>
+        html, body {
+            height: 100%; /* Full height for the body */
+            margin: 0; /* Remove default margin */
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Stack elements vertically */
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #FF5F6D, #FFC371);
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .navbar li,
+        .navbar > a {
+            margin: 5px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 20px;
+            padding: 5px 10px;
+        }
+
+        .navbar li:hover,
+        .navbar > a:hover {
+            background-color: skyblue;
+            transition: 0.5s;
+        }
+
+        .navbar .active {
+            background-color: skyblue;
+            border-radius: 20px;
+            padding: 5px 10px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa; /* Light background color for contrast */
+            text-align: center;
+            flex: 1; /* Allow the body to grow and fill the space */
+        }
+
+        header {
+            background-color: #FF5F6D; /* Navbar background color */
+        }
+
+        .navbar-brand {
+            color: #fff; /* Color of the brand name */
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff; /* Link color */
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #FFC371; /* Link color on hover */
+        }
+
+        .info-box {
+            background: linear-gradient(90deg, #FF5F6D, #FFC371);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 2px solid #b6666d; /* Border color */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Padding inside the box */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow effect for depth */
+            margin-top: 20px; /* Space above the box */
+        }
+
+        .img-fluid {
+            margin: 20px 0; /* Spacing around images */
+            max-height: 200px; /* Limit image height */
+            border-radius: 10px; /* Rounded corners for images */
+        }
+
+        footer {
+            background: linear-gradient(90deg, #FF5F6D, #FFC371);
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0; /* Padding around footer */
+            text-align: center; /* Center text in footer */
+        }
+
+        footer a {
+            color: #FFC371; /* Link color in footer */
+            text-decoration: none; /* No underline */
+        }
+
+        footer a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="index.html">Bailey Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="Breed Information.html">Breed Information</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="about.html">About Bailey</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-5 flex-grow-1">
+        <h1 class="text-center">Meet Bailey!</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-3 text-center">
+                <img src="bailey1.jpg" alt="Bailey Image 1" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6">
+                <div class="info-box">
+                    <h2>About Bailey</h2>
+                    <p>Bailey is a fun-loving, energetic Golden Retriever. He enjoys long walks in the park, chasing squirrels, and playing fetch with his favorite ball. Adopted from a local shelter, Bailey has brought endless joy and laughter into our lives.</p>
+
+                    <h3>Favorite Activities</h3>
+                    <ul>
+                        <li>Playing fetch</li>
+                        <li>Swimming in the lake</li>
+                        <li>Exploring new trails</li>
+                        <li>Cuddling on the couch</li>
+                    </ul>
+
+                    <h3>Fun Facts</h3>
+                    <ul>
+                        <li>Bailey can do several tricks, including roll over and play dead!</li>
+                        <li>His favorite toy is a squeaky duck.</li>
+                        <li>He loves peanut butter treats.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <img src="bailey2.jpg" alt="Bailey Image 2" class="img-fluid rounded">
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Bailey Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
