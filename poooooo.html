@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 10rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 90%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+        }
+        button[type="reset"] {
+            background-color: #f44336;
+        }
+        #message {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Form Registration</h1>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="reenterPassword">Re-enter Password:</label>
+                <input type="password" id="reenterPassword" name="reenterPassword" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Register</button>
+                <button type="reset">Clear</button>
+            </div>
+        </form>
+        <div id="message"></div>
+    </div>
+
+    <script>
+ document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('registrationForm');
+        const messageElement = document.getElementById('message');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = form.elements.username.value;
+            const password = form.elements.password.value;
+            const reenterPassword = form.elements.reenterPassword.value;
+
+            if (validateForm(username, password, reenterPassword)) {
+                displayMessage('Registration successful!', 'success');
+                form.reset();
+            }
+        });
+
+        function validateForm(username, password, reenterPassword) {
+            if (password !== reenterPassword) {
+                displayMessage('Passwords do not match.', 'error');
+                return false;
+            }
+
+            if (password.length < 8 || password.length > 12) {
+                displayMessage('Password must be between 8 and 12 characters.', 'error');
+                return false;
+            }
+
+            if (!/[A-Z]/.test(password)) {
+                displayMessage('Password must include at least one upper-case letter.', 'error');
+                return false;
+            }
+
+            if (!/[a-z]/.test(password)) {
+                displayMessage('Password must include at least one lower-case letter.', 'error');
+                return false;
+            }
+
+            if (!/\d/.test(password)) {
+                displayMessage('Password must include at least one number.', 'error');
+                return false;
+            }
+
+            return true;
+        }
+
+        function displayMessage(message, type) {
+            messageElement.textContent = message;
+            messageElement.className = type;
+        }
+    });
+
+    </script>
+</body>
+</html>
