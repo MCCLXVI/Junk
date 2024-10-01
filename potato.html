@@ -7,14 +7,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            background-color: #6d6d6d;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
         .calculator {
-            background-color: white;
+            background-color: rgb(0, 0, 0);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -26,9 +26,11 @@
             font-size: 18px;
             text-align: right;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #5928a7;
             border-radius: 5px;
             box-sizing: border-box;
+            color: white; 
+            background-color: rgb(66, 66, 66);
         }
         .button-grid {
             display: grid;
@@ -38,7 +40,7 @@
         button {
             padding: 15px;
             font-size: 18px;
-            background-color: #28a745;
+            background-color: #5928a7;
             color: white;
             border: none;
             border-radius: 5px;
@@ -48,10 +50,10 @@
             background-color: #218838;
         }
         .operator {
-            background-color: #007bff;
+            background-color: #dd9c0f;
         }
         .operator:hover {
-            background-color: #0069d9;
+            background-color: #dd9c0f;
         }
         .clear {
             grid-column: 1 / span 4;
@@ -79,8 +81,8 @@
         <button onclick="appendNumber('3')">3</button>
         <button onclick="chooseOperator('*')" class="operator">*</button>
         <button onclick="appendNumber('0')">0</button>
-        <button onclick="chooseOperator('/')" class="operator">/</button>
         <button onclick="calculate()" class="equals">=</button>
+        <button onclick="chooseOperator('/')" class="operator">/</button>
     </div>
 </div>
 <script>
@@ -89,21 +91,21 @@
     let operator = '';
     let hasCalculated = false;
 
-    // Function to append numbers to the input
+   
     function appendNumber(number) {
         if (hasCalculated) {
-            currentInput = '';  // Clear input after a calculation
+            currentInput = '';  
             hasCalculated = false;
         }
         currentInput += number;
         document.getElementById('result').value = currentInput;
     }
 
-    // Function to handle operator selection
+  
     function chooseOperator(op) {
-        if (currentInput === '') return;  // Prevent choosing operator without a number
+        if (currentInput === '') return;  
         if (previousInput !== '' && operator !== '') {
-            calculate();  // Chain calculations
+            calculate();  
         }
         operator = op;
         previousInput = currentInput;
@@ -111,15 +113,15 @@
         document.getElementById('result').value = '';
     }
 
-    // Function to calculate the result
+  
     function calculate() {
-        if (previousInput === '' || currentInput === '') return;  // Ensure both inputs are valid
+        if (previousInput === '' || currentInput === '') return;  
 
         let result;
         const prev = parseFloat(previousInput);
         const current = parseFloat(currentInput);
 
-        // Perform the calculation based on the operator
+       
         if (operator === '+') {
             result = prev + current;
         } else if (operator === '-') {
@@ -128,20 +130,18 @@
             result = prev * current;
         } else if (operator === '/') {
             if (current === 0) {
-                result = 'Error';  // Handle division by zero
+                result = 'Error';  
             } else {
                 result = prev / current;
             }
         }
 
         document.getElementById('result').value = result;
-        currentInput = result;  // Store the result as current input
+        currentInput = result;  
         previousInput = '';
         operator = '';
-        hasCalculated = true;  // Set flag to handle future input
+        hasCalculated = true;  
     }
-
-    // Function to clear the calculator
     function clearResult() {
         currentInput = '';
         previousInput = '';
