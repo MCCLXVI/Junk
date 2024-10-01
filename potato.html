@@ -84,32 +84,42 @@
     </div>
 </div>
 <script>
-    let currentInput = '';
+  let currentInput = '';
     let previousInput = '';
     let operator = '';
+    let hasCalculated = false;
 
-    // Bug: Division by zero is not handled properly
+    // Function to append numbers to the input
     function appendNumber(number) {
+        if (hasCalculated) {
+            currentInput = '';  // Clear input after a calculation
+            hasCalculated = false;
+        }
         currentInput += number;
         document.getElementById('result').value = currentInput;
     }
 
-    // Bug: No validation on the operator usage
+    // Function to handle operator selection
     function chooseOperator(op) {
-        if (currentInput === '') return;
+        if (currentInput === '') return;  // Prevent choosing operator without a number
+        if (previousInput !== '' && operator !== '') {
+            calculate();  // Chain calculations
+        }
         operator = op;
         previousInput = currentInput;
         currentInput = '';
         document.getElementById('result').value = '';
     }
 
-    // Bug: Multiple equals button presses repeat the operation unexpectedly
+    // Function to calculate the result
     function calculate() {
+        if (previousInput === '' || currentInput === '') return;  // Ensure both inputs are valid
+
         let result;
         const prev = parseFloat(previousInput);
         const current = parseFloat(currentInput);
 
-        // Perform operation based on the operator
+        // Perform the calculation based on the operator
         if (operator === '+') {
             result = prev + current;
         } else if (operator === '-') {
@@ -117,22 +127,27 @@
         } else if (operator === '*') {
             result = prev * current;
         } else if (operator === '/') {
-            // Bug: Division by zero is not handled
-            result = prev / current;
+            if (current === 0) {
+                result = 'Error';  // Handle division by zero
+            } else {
+                result = prev / current;
+            }
         }
 
-        // Bug: Results are not properly cleared between calculations
         document.getElementById('result').value = result;
-        currentInput = result;
+        currentInput = result;  // Store the result as current input
         previousInput = '';
         operator = '';
+        hasCalculated = true;  // Set flag to handle future input
     }
 
+    // Function to clear the calculator
     function clearResult() {
         currentInput = '';
         previousInput = '';
         operator = '';
         document.getElementById('result').value = '';
+        hasCalculated = false;
     }
 </script>
 
