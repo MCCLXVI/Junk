@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 4.0;
+    color: #333;
+}
+ 
+h1, h2, h3 {
+    margin: 0;
+}
+ 
+a {
+    text-decoration: none;
+    color: #333;
+}
+ 
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4CAF50;
+    padding: 10px 20px;
+    color: white;
+}
+ 
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+ 
+.nav-bar a {
+    margin: 0 10px;
+    color: white;
+}
+ 
+.auth-buttons .btn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background: white;
+    color: #4CAF50;
+    cursor: pointer;
+}
+ 
+.auth-buttons .btn.primary {
+    background: #FFC107;
+    color: white;
+}
+ 
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+    background: #F4F4F4;
+}
+ 
+.hero h1 {
+    margin-bottom: 10px;
+    font-size: 2.5em;
+}
+ 
+.hero-buttons .btn {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+ 
+.hero-buttons .btn.primary {
+    background: #FFC107;
+}
+ 
+/* Quick Links Section */
+.quick-links {
+    padding: 20px;
+    background: #FFF;
+    text-align: center;
+}
+ 
+.quick-links .links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+ 
+.quick-links .card {
+    padding: 20px;
+    background: #F4F4F4;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+ 
+.quick-links .card:hover {
+    transform: scale(1.05);
+}
+ 
+/* Features Section */
+.features {
+    padding: 20px;
+    background: #E8F5E9;
+    text-align: center;
+}
+ 
+.feature-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+ 
+.feature {
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    max-width: 250px;
+}
+ 
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 10px;
+    background: #4CAF50;
+    color: white;
+}
+ 
+.footer-links a {
+    margin: 0 10px;
+    color: white;
+    font-size: 14px;
+}
